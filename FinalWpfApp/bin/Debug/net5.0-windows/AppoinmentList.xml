@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppointmentList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Appointment>
+    <Time>12:00 PM</Time>
+    <Mobile xsi:type="ScreenService">
+      <FullName>hgjh</FullName>
+      <ModelNumber>jhkj</ModelNumber>
+      <ItemDescription>kjkjkjkjkjkj</ItemDescription>
+      <PhoneNumber>2525252525</PhoneNumber>
+    </Mobile>
+    <DeviceIssue>Screen Service</DeviceIssue>
+    <Warrenty>Yes</Warrenty>
+  </Appointment>
+</AppointmentList>

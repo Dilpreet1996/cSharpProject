@@ -1,0 +1,157 @@
+﻿<Window x:Class="FinalWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinalWpfApp"
+        mc:Ignorable="d"
+       Title="MainWindow" Height="750" Width="1250">
+    <Grid x:Name="labelMessage">
+        <Grid.Resources>
+           
+            <local:WarrentyConveter x:Key="WarrentyConveter"/>
+          
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Margin" Value="0,5"/>
+            </Style>
+            <Style TargetType="{x:Type TextBlock}" x:Key="WrapText">
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Margin" Value="0,2,0,0"/>
+                <Setter Property="Padding" Value="0,3,0,0"/>
+            </Style>
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Width" Value="120"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="101"/>
+            <ColumnDefinition Width="119"/>
+            <ColumnDefinition Width="650"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Welcome to Mobile Service center" HorizontalAlignment="Left" Foreground="red" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="67,5,0,5" FontWeight="Bold" FontSize="20" />
+
+        <Label Content="Select Appoinment Timing:" Grid.Row="2" Grid.Column="0" Margin="0,5,0,5"/>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" Margin="0,10,0,11" Grid.ColumnSpan="2">
+            <ComboBox x:Name="timeSlotBookingComboBox" Width="150" Padding="14,6,0,0" Height="30">
+
+            </ComboBox>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top"  Content="Please select Time" Width="220" FontSize="10" Visibility="Hidden" Name="TimeSlotError" />
+        </StackPanel>
+        <Label Content="Mobile Service Selection" Grid.Row="3" Grid.Column="0" Margin="0,5,0,5"/>
+
+        <StackPanel Margin="0,7,0,72" Orientation="Vertical" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <ComboBox x:Name="selectService" Width="150" Padding="14,6,0,0" Height="30">
+                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+
+            </ComboBox>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top"  Content="Select any one service" Width="220" FontSize="10" Visibility="Hidden" Name="selectReason" />
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="8" Margin="0,0,0,72" Grid.RowSpan="2" >
+            <Label  x:Name="MessageShow"   HorizontalAlignment="Left" Margin="75,10,0,0"  VerticalAlignment="Top"  Foreground="Blue"/>
+        </StackPanel>
+
+        <Label Content=" Customer Name : " Margin="10,5,0,11" Grid.Row="7" Grid.Column="3"/>
+        <StackPanel Margin="0,7,0,11" Orientation="Vertical" Grid.Row="7" Grid.Column="3">
+            <TextBox x:Name="searchBox" Margin="150,0,0,0" Width="150" Height="30"  HorizontalAlignment="Left"/>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Top"  Content="Enter Model Number" Width="220" FontSize="10" Visibility="Hidden" Name="searchModel" />
+        </StackPanel>
+
+        <Button Content="Search By Name" Margin="335,5,205,77" Name="SearchButton" Grid.Row="7" Grid.Column="3" Click="SearchButton_Click"/>
+
+        <Border BorderThickness="1" BorderBrush="Black"  Grid.Row="2" Height="300" Width="630" Margin="5,48,25,21"  Grid.Column="3" Grid.ColumnSpan="7" Grid.RowSpan="4">
+            <ScrollViewer>
+                <DataGrid Name="customerGrid" HorizontalAlignment="Left" 
+                              Height="300"
+                              VerticalAlignment="Top" Width="630"
+                              AutoGenerateColumns="False">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="{Binding Path=., Converter={StaticResource WarrentyConveter}}" />
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="TimeSlot"  Binding="{Binding Time}" />
+                        <DataGridTextColumn Header="UserName" Binding="{Binding Mobile.FullName}" />
+                        <DataGridTextColumn Header="MobileNumber" Binding="{Binding Mobile.PhoneNumber}"/>
+                        <DataGridTextColumn Header="Selected Service" Binding="{Binding DeviceIssue}"/>
+                        <DataGridTextColumn Header="ModelNumber" Binding="{Binding Mobile.ModelNumber}" />
+                        <DataGridTextColumn ElementStyle="{StaticResource WrapText}" Header="Description" Width="80" Binding="{Binding Mobile.ItemDescription}" />
+                        <DataGridTextColumn Header="Warranty" Binding="{Binding Warrenty}"/>
+                                    
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </Border>
+
+        <Label Content="Enter Your Name:" Grid.Row="4" Grid.Column="0" Margin="0,45,0,5"/>
+
+        <StackPanel Margin="0,45,0,82" Orientation="Vertical" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <TextBox x:Name="nameTextBox" Width="150" Height="30" TextChanged="nameTextBox_TextChanged"/>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top"  Content="Enter your name properly" Width="220" FontSize="10" Visibility="Hidden" Name="enterName" />
+        </StackPanel>
+
+        <Label Content="Enter your phone Number" Grid.Row="5" Grid.Column="0" Margin="0,35,0,5"/>
+
+        <StackPanel Margin="0,37,0,0" Orientation="Vertical" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBox Width="150" Name="phoneTextBox" Height="30"   HorizontalAlignment="Center" TextChanged="phoneTextBox_TextChanged" />
+
+
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top"  Content="phone number must be 10 digit" Width="220" FontSize="10" Visibility="Hidden" Name="phoneNumber" />
+        </StackPanel>
+
+        <Label Content="Model Number of your Mobile:" Grid.Row="6" Grid.Column="0" Margin="0,0,0,5"/>
+        <StackPanel Margin="0,0,0,81" Orientation="Vertical" Grid.Row="6" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <TextBox x:Name="modelNumberTextBox"   Width="150" Height="30" TextChanged="modelNumberTextBox_TextChanged"/>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top"  Content="Your Model Number more than 3 charcters" Width="220" FontSize="10" Visibility="Hidden" Name="mobileModel" />
+        </StackPanel>
+
+        <Label Content="Enter Your Address:" Grid.Row="7" Grid.Column="0" Margin="0,5,0,5"/>
+        <StackPanel Margin="0,23,0,41" Orientation="Vertical" Grid.Row="7" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <TextBox MaxLines="10" x:Name="briefTextBlock" Width="150" TextWrapping="Wrap" Height="40" FontSize="15" TextChanged="briefTextBlock_TextChanged"/>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top"  Content="Your Address should be more than 10 characters" Width="220" FontSize="10" Visibility="Hidden" Name="message" />
+        </StackPanel>
+
+        <Label Content="Mobile Warranty:" Grid.Row="8" Grid.Column="0" Margin="0,5,0,5"/>
+        <StackPanel  Grid.Row="8" Grid.Column="1" Width="150" Margin="35,15,35,0" Orientation="Horizontal" Grid.ColumnSpan="2">
+            <RadioButton x:Name="rbYes" GroupName="warrantyType">Yes</RadioButton>
+            <RadioButton x:Name="rbNo"   GroupName="warrantyType"  IsChecked="True" Margin="10,0,0,0">No</RadioButton>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="9" Grid.Column="0" Margin="100,10,0,0" Orientation="Horizontal">
+            <Button Content="Book and Save Into XML" Name="appointmentButton" Margin="10,10,0,0" Click="bookAppoinmentOnClick"/>
+            <Button Content="Get from Xml File" Name="showAppointmentButton" Margin="20,10,0,0" Click="showAppointmentOnClick"/>
+        </StackPanel>
+
+
+
+
+    </Grid>
+</Window>
